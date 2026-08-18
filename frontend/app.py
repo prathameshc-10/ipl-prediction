@@ -56,7 +56,7 @@ st.markdown("""
         margin-top: 1.5rem;
     }
 </style>
-""", unsafe_allow_encoded_html=True)
+""", unsafe_allow_html=True)
 
 # Helper Paths
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -174,8 +174,8 @@ with st.sidebar:
     st.caption("Developed forvivekdake09/third-umpire-ipl-prediction")
 
 # ----------------- MAIN INTERFACE -----------------
-st.markdown('<div class="main-header">Third Umpire: IPL Prediction System</div>', unsafe_allow_encoded_html=True)
-st.markdown('<div class="sub-header">An educational machine learning application for predicting IPL match winners</div>', unsafe_allow_encoded_html=True)
+st.markdown('<div class="main-header">Third Umpire: IPL Prediction System</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">An educational machine learning application for predicting IPL match winners</div>', unsafe_allow_html=True)
 
 # Create Tabs
 tab_predict, tab_analytics, tab_insights = st.tabs([
@@ -245,7 +245,7 @@ with tab_predict:
                                 <h3>🏆 Predicted Winner: <strong>{pred_winner}</strong></h3>
                                 <p style="font-size:1.1rem; color:#1e40af;">Confidence Score: <strong>{confidence*100:.1f}%</strong></p>
                             </div>
-                            """, unsafe_allow_encoded_html=True)
+                            """, unsafe_allow_html=True)
                             
                             st.progress(confidence)
                             st.caption(f"Model used: {model_used} | Prediction computed at: {result['timestamp']}")
@@ -319,7 +319,7 @@ with tab_predict:
                             <h3>🏆 Predicted Winner: <strong>{pred_winner}</strong> (Local Forecast)</h3>
                             <p style="font-size:1.1rem; color:#1e40af;">Confidence Score: <strong>{confidence*100:.1f}%</strong></p>
                         </div>
-                        """, unsafe_allow_encoded_html=True)
+                        """, unsafe_allow_html=True)
                         st.progress(confidence)
                         st.caption(f"Model used: {model_name} (Loaded locally) | Start FastAPI server for complete production setup.")
 
@@ -340,28 +340,28 @@ with tab_analytics:
                 <div class="metric-value">{metrics.get('accuracy', 0.0)*100:.1f}%</div>
                 <div class="metric-label">Test Accuracy</div>
             </div>
-            """, unsafe_allow_encoded_html=True)
+            """, unsafe_allow_html=True)
         with col_prec:
             st.markdown(f"""
             <div class="metric-card">
                 <div class="metric-value">{metrics.get('precision', 0.0)*100:.1f}%</div>
                 <div class="metric-label">Precision Score</div>
             </div>
-            """, unsafe_allow_encoded_html=True)
+            """, unsafe_allow_html=True)
         with col_rec:
             st.markdown(f"""
             <div class="metric-card">
                 <div class="metric-value">{metrics.get('recall', 0.0)*100:.1f}%</div>
                 <div class="metric-label">Recall Score</div>
             </div>
-            """, unsafe_allow_encoded_html=True)
+            """, unsafe_allow_html=True)
         with col_f1:
             st.markdown(f"""
             <div class="metric-card">
                 <div class="metric-value">{metrics.get('f1_score', 0.0)*100:.1f}%</div>
                 <div class="metric-label">F1 Score</div>
             </div>
-            """, unsafe_allow_encoded_html=True)
+            """, unsafe_allow_html=True)
             
         st.divider()
         
