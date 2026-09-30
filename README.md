@@ -52,7 +52,7 @@ third-umpire/
 ├── requirements.txt             # Python packages dependencies list
 ├── .gitignore                   # Standard gitignore configurations
 ├── setup.sh                     # Unix setup script (creates venv, runs training, runs tests)
-├── setup.ps1                    # PowerShell setup script (Windows users)
+├── setup.ps1                    # Windows setup script
 └── README.md                    # Comprehensive documentation
 ```
 
@@ -89,16 +89,21 @@ date,season,city,venue,team1,team2,toss_winner,toss_decision,winner
 
 ## ⚙️ Quick Installation & Setup
 
-We have provided one-command setup scripts to automate virtual environment creation, package installation, model training, and testing.
+The setup scripts automate virtual environment creation, package installation, model training, and testing. On Windows, use Git Bash commands:
 
-### For Windows Users (PowerShell)
-Open PowerShell inside the repository directory and execute:
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\setup.ps1
+### For Windows Users (Git Bash)
+Open Git Bash inside the repository directory and run:
+```bash
+python -m venv venv
+source venv/Scripts/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+export PYTHONPATH="$PWD"
+python src/model_training.py
+python -m pytest
 ```
 
-### For Unix/macOS/Git Bash Users
+### For Unix/macOS Users
 Open a terminal inside the repository directory and execute:
 ```bash
 chmod +x setup.sh
@@ -114,11 +119,10 @@ If you prefer to run steps manually, follow these commands:
 ### 1. Model Training & Saving
 To clean data, engineer rolling features, tune hyperparameters, and save the best model:
 ```bash
-# Windows
-$env:PYTHONPATH = (Get-Item .).FullName; .\venv\Scripts\python src/model_training.py
-
-# Unix/macOS
-export PYTHONPATH=$PYTHONPATH:$(pwd)
+# Activate the virtual environment first:
+# Windows Git Bash: source venv/Scripts/activate
+# Unix/macOS: source venv/bin/activate
+export PYTHONPATH="$PWD"
 python src/model_training.py
 ```
 This script will evaluate **Logistic Regression**, **Random Forest**, and **Gradient Boosting**, select the best model, save the serialized pipeline to `models/best_model.pkl`, and export charts to `models/`.
@@ -126,19 +130,16 @@ This script will evaluate **Logistic Regression**, **Random Forest**, and **Grad
 ### 2. Run Unit Tests
 To run our test suite using `pytest`:
 ```bash
-# Windows
-$env:PYTHONPATH = (Get-Item .).FullName; .\venv\Scripts\python -m pytest
-
-# Unix/macOS
 python -m pytest
 ```
 
 ### 3. Deploy the FastAPI Backend
 Start the high-performance prediction API server locally:
 ```bash
-# Activate venv first
-# Windows: . venv\Scripts\Activate.ps1
-# Unix: source venv/bin/activate
+# In the first terminal, activate the virtual environment:
+# Windows Git Bash: source venv/Scripts/activate
+# Unix/macOS: source venv/bin/activate
+export PYTHONPATH="$PWD"
 
 uvicorn backend.main:app --reload --port 8000
 ```
@@ -146,8 +147,10 @@ uvicorn backend.main:app --reload --port 8000
 *   **Swagger API Docs (UI)**: `http://127.0.0.1:8000/docs` (interactive page to test endpoints)
 
 ### 4. Launch the Streamlit Frontend Dashboard
-Start the interactive Streamlit user dashboard:
+In a second terminal, activate the virtual environment and start the interactive dashboard:
 ```bash
+source venv/Scripts/activate  # Windows Git Bash
+# On Unix/macOS, use: source venv/bin/activate
 streamlit run frontend/app.py
 ```
 *   **Web App URL**: `http://localhost:8501`
