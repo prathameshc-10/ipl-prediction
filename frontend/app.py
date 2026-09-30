@@ -55,6 +55,10 @@ st.markdown("""
         border-radius: 1rem;
         margin-top: 1.5rem;
     }
+    .prediction-card h3,
+    .prediction-card h3 strong {
+        color: #000000 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -171,7 +175,6 @@ with st.sidebar:
         """)
         
     st.divider()
-    st.caption("Developed forvivekdake09/third-umpire-ipl-prediction")
 
 # ----------------- MAIN INTERFACE -----------------
 st.markdown('<div class="main-header">Third Umpire: IPL Prediction System</div>', unsafe_allow_html=True)
